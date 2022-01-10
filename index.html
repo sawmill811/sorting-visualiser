@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pxSort</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@600&family=Days+One&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="homepage">SORTING VISUALISER</a>
+        <span id="about">Made with 🖤 by <a href="https://sawmill811.github.io">Soumil Sinha</a></span>
+    </div>
+
+    <div class="panel">
+        <div class="panel-L">
+            <div class = "panel-L1">
+                <div class="sort-algo" id = "sort-algo">
+                    
+                    <select>
+                        <option value="">selection sort</option>
+                        <option value="">bubble sort</option>
+                        <option value="">counting sort</option>
+                        <option value="">quick sort</option>
+                        <option value="">merge sort</option>
+                        
+                    </select>
+                    <!-- <img class = "custom-down-arrow" src="images/down.svg"></ion-icon> -->
+                    <div class="bg">
+                        <div id = "custom-down-arrow"></div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="panel-L2">
+                <div class="speed">
+                    <input type="range" id="speed-selector" min="0" max="2" value="2">
+                </div>
+                <div class="speed-labels">
+                    <span id="slower">slower</span>
+                    <span id="slow">slow</span>
+                    <span id="normal">normal</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-M">
+            <div class="image"></div>
+            <div class="image-size"></div>
+        </div>
+        <div class="panel-R">
+            <div class="iterations"></div>
+            <div class="time-elapsed"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
