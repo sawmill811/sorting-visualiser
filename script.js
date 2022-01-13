@@ -49,7 +49,7 @@ document.addEventListener("fullscreenchange", () => {
 })
 
 // placing our image
-var folderName = ["JS", "IITJ1"];
+var folderName = ["IITJ1","IITJ2","IITJ3","IITJ4"];
 var folder = folderName[Math.floor(Math.random()*folderName.length)];
 window.onload = loadImages();
 // var dir = ["IITJ1"];
