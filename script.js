@@ -131,14 +131,14 @@ function shuffleArray() {
 
 // border colour options: 0C1E7F, 7900FF, 9145B6, B000B9, 3D2C8D
 
-let itrs = document.getElementById("itrs");
+var itrs = document.getElementById("itrs");
 var range = document.getElementById("speed-selector");
 var startBtn = document.getElementById("start-btn");
 var startText = document.getElementById("start-text");
 var stopBtn = document.getElementById("stop-btn");
+var sortSelector = document.getElementById("sortAlgo");
 
-
-var delay = 150;
+var delay = 200;
 var stop = false;
 
 
@@ -151,8 +151,9 @@ function startSort(){
     startText.innerText = "stop!";
     startText.style.left = "24%";
     // startBtn.onclick = function(){return;}
-    algo = document.getElementById("sortAlgo").value;
     
+    algo = sortSelector.value;
+    sortSelector.disabled = "true";
     if(algo == 0){
         itrs.innerText = 0;
         selectionSort();
@@ -162,13 +163,14 @@ function startSort(){
         itrs.innerText = 0;
         bubbleSort();
     }
-
+    sortSelector.disabled = "false";
     startBtn.src = "images/play.svg";
     // startBtn.onclick = startSort();
 }
 
 function stopSort(){
     stop = true;
+    sortSelector.disabled = false;
     stopBtn.style.display = "none";
     startBtn.style.display = "block";
     startText.innerText = "sort!";
