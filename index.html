@@ -19,20 +19,25 @@
     <div class="panel">
         <div class="panel-start">
             <div class="start-container">
-                <img src="images/play.svg"     class="start-btn">
+                <img src="images/play.svg" class="start-btn" id="start-btn" onclick="startSort()">
+                <img src="images/stop.svg" class="start-btn" id="stop-btn" onclick="stopSort()">
                 <div id="start-text">sort!</div>
+            </div>
+            <div class="shuffle">
+                <img src="images/shuffle.svg" class="shuffle-btn" onclick="shuffleArray()">
+                <div id="shuffle-text">shuffle!</div>
             </div>
         </div>
         <div class="panel-L">
             <div class = "panel-L1">
                 <div class="sort-algo" id = "sort-algo">
                     
-                    <select>
-                        <option value="">selection sort</option>
-                        <option value="">bubble sort</option>
-                        <option value="">counting sort</option>
-                        <option value="">quick sort</option>
-                        <option value="">merge sort</option>
+                    <select id="sortAlgo">
+                        <option value="0">selection sort</option>
+                        <option value="1">bubble sort</option>
+                        <option value="2">counting sort</option>
+                        <option value="3">quick sort</option>
+                        <option value="4">merge sort</option>
                         
                     </select>
                     <!-- <img class = "custom-down-arrow" src="images/down.svg"></ion-icon> -->
@@ -44,7 +49,7 @@
             </div>
             <div class="panel-L2">
                 <div class="speed">
-                    <input type="range" id="speed-selector" min="0" max="2" value="2">
+                    <input type="range" id="speed-selector" min="1" max="3" value="3">
                 </div>
                 <div class="speed-labels">
                     <span id="slower">slower</span>
@@ -54,13 +59,122 @@
             </div>
         </div>
         <div class="panel-M">
-            <div class="image"></div>
-            <div class="image-size"></div>
+            <div class="loading"><img src="images/loading.svg" alt="loading..."></div>
+            <div class="row-1">
+                <div id="col-1">
+                    <span id="num">1</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-2">
+                    <span id="num">2</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-3">
+                    <span id="num">3</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-4">
+                    <span id="num">4</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-5">
+                    <span id="num">5</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+            </div>
+            <div class="row-2">
+                <div id="col-6">
+                    <span id="num">6</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-7">
+                    <span id="num">7</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-8">
+                    <span id="num">8</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-9">
+                    <span id="num">9</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-10">
+                    <span id="num">10</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+            </div>
+            <div class="row-3">
+                <div id="col-11">
+                    <span id="num">11</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-12">
+                    <span id="num">12</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-13">
+                    <span id="num">13</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-14">
+                    <span id="num">14</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-15">
+                    <span id="num">15</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+            </div>
+            <div class="row-4">
+                <div id="col-16">
+                    <span id="num">16</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-17">
+                    <span id="num">17</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-18">
+                    <span id="num">18</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-19">
+                    <span id="num">19</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-20">
+                    <span id="num">20</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+            </div>
+            <div class="row-5">
+                <div id="col-21">
+                    <span id="num">21</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-22">
+                    <span id="num">22</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-23">
+                    <span id="num">23</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+                <div id="col-24">
+                    <span id="num">24</span>
+                    <!-- <canvas id = "sortImage"></canvas> -->
+                </div>
+                <div id="col-25">
+                    <span id="num">25</span>
+                    <!-- <canvas id = "sortImage"></canvas>     -->
+                </div>
+            </div>
         </div>
         <div class="panel-R">
             <div class="iterations">
                 <!-- <img class = "iterations-logo" src="images/iterations.svg">  -->
-                <span class="text">iterations: </span><span id="itrs"></span>
+                <span class="text">iterations: </span><span id="itrs">0</span>
             </div>
             <!-- <div class="time-elapsed"></div> -->
             <div class="fullscreen"><span id="text">fullscreen mode</span></div>
