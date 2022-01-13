@@ -1,3 +1,15 @@
+
+var itrs = document.getElementById("itrs");
+var range = document.getElementById("speed-selector");
+var startBtn = document.getElementById("start-btn");
+var startText = document.getElementById("start-text");
+var stopBtn = document.getElementById("stop-btn");
+var sortSelector = document.getElementById("sortAlgo");
+var shufBtn = document.getElementsByClassName("shuffle-btn")[0];
+var shufText = document.getElementById("shuffle-text");
+
+
+
 // fullscreen stuff
 
 document.getElementById("text").addEventListener("click", () => {
@@ -57,6 +69,10 @@ window.onload = loadImages();
 function loadImages(){
     let loading = document.getElementsByClassName("loading")[0];
     loading.style.opacity = 1;
+    startBtn.style.display = "none";
+    startText.style.display = "none";
+    shufBtn.style.display = "none";
+    shufText.style.display = "none";
     var imgArray = [];
     for(let i=1;i<=25;i++) {
         let imgObj = new Image();
@@ -64,6 +80,10 @@ function loadImages(){
         imgArray.push(imgObj);
     }
     imgArray[24].onload = function(){
+        startBtn.style.display = "block";
+        startText.style.display = "block";
+        shufBtn.style.display = "block";
+        shufText.style.display = "block";
         for(let i=1;i<=5;i++){
             let currRow = document.getElementsByClassName("row-"+i)[0];
             currRow.style.opacity = 1;
@@ -71,6 +91,8 @@ function loadImages(){
         loading.style.opacity = 0;
         placeImage(imgArray);
     };
+
+    
 }
 
 function placeImage(imgArray){
@@ -95,6 +117,7 @@ var myArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
 
 function shuffleArray() {
     "use strict";
+    stopSort();
     let array = [...myArray];
     // console.log("hey");
     let current = array.length;
@@ -131,12 +154,6 @@ function shuffleArray() {
 
 // border colour options: 0C1E7F, 7900FF, 9145B6, B000B9, 3D2C8D
 
-var itrs = document.getElementById("itrs");
-var range = document.getElementById("speed-selector");
-var startBtn = document.getElementById("start-btn");
-var startText = document.getElementById("start-text");
-var stopBtn = document.getElementById("stop-btn");
-var sortSelector = document.getElementById("sortAlgo");
 
 var delay = 200;
 var stop = false;
