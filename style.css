@@ -111,7 +111,7 @@ a {
     align-items: center;
     font-family: "Poppins", sans-serif;
     color: #EEF2FF;
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     /* background: rgba(234,245,254,0.2); */
 }
 
@@ -294,7 +294,7 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     /* background: rgba(234,245,254,0.2); */
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
 }
 
 @media (orientation: portrait) {
