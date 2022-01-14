@@ -604,7 +604,7 @@ div[id|=col] #num{
     left: 0;
     width: 20%;
     max-width: 2vw;
-    text-align: right;
+    text-align: center;
     /* padding: 0 min(0.7%, 0.8vw); */
     margin: 0;
     border-bottom-right-radius: 30%;

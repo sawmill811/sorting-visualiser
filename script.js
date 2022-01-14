@@ -14,7 +14,7 @@ var shufText = document.getElementById("shuffle-text");
 
 document.getElementById("text").addEventListener("click", () => {
     document.documentElement.requestFullscreen().catch((e) => {
-        console.log(e);
+        // console.log(e);
     });
 });
 
@@ -24,7 +24,7 @@ function isFS(){
 
 function zenMode(){
     if (isFS() === undefined) {
-        console.log("~~ zen mode disabled ~~");
+        // console.log("~~ zen mode disabled ~~");
         document.getElementsByClassName("panel-L")[0].style.display = "flex";
         document.getElementsByClassName("panel-R")[0].style.display = "flex";
         document.getElementsByClassName("panel-M")[0].style.width = "50%";
@@ -39,7 +39,7 @@ function zenMode(){
         document.getElementsByClassName("panel")[0].style.height = "90vh";
         document.getElementsByClassName("panel")[0].style.margin = "0";
     } else {
-        console.log("~~ zen mode active ~~");
+        // console.log("~~ zen mode active ~~");
         document.getElementsByClassName("panel-L")[0].style.display = "none";
         document.getElementsByClassName("panel-R")[0].style.display = "none";
         document.getElementsByClassName("panel-M")[0].style.width = "75.2%";
@@ -119,18 +119,18 @@ function shuffleArray() {
     "use strict";
     stopSort();
     let array = [...myArray];
-    // console.log("hey");
+    // // console.log("hey");
     let current = array.length;
     while(current!=0) {
         let randomIndex = Math.floor(Math.random()*current);
         current--;
         [array[current], array[randomIndex]] = [array[randomIndex], array[current]];
-        // console.log(col1.childNodes[1].inner);
+        // // console.log(col1.childNodes[1].inner);
     }
 
     document.getElementsByClassName("panel-M")[0].style.opacity = 0;
 
-    console.log(JSON.stringify(array));
+    // console.log(JSON.stringify(array));
 
     
     setTimeout(()=> {
@@ -138,7 +138,7 @@ function shuffleArray() {
             let colName = "col-" + JSON.stringify(i);
             let currentBox = document.getElementById(colName);
             let numField = currentBox.childNodes;
-            // console.log(numField[0].innerHTML);
+            // // console.log(numField[0].innerHTML);
             numField[1].innerHTML = array[i-1];
             currentBox.style.backgroundImage = "url(sortingImages/"+folder+"/"+JSON.stringify(26-array[i-1])+".png)";
             // currentBox.innerText = array[i-1];
@@ -161,7 +161,7 @@ var stop = false;
 
 stopBtn.style.display = "none";
 
-function startSort(){   
+async function startSort(){   
     stop = false;
     startBtn.style.display = "none";
     stopBtn.style.display = "block";
@@ -173,15 +173,49 @@ function startSort(){
     sortSelector.disabled = "true";
     if(algo == 0){
         itrs.innerText = 0;
-        selectionSort();
+        await selectionSort();
         
     }
     else if(algo == 1) {
         itrs.innerText = 0;
-        bubbleSort();
+        await bubbleSort();
     }
-    sortSelector.disabled = "false";
-    startBtn.src = "images/play.svg";
+    else if(algo == 2) {
+        itrs.innerText = 0;
+        for(let ele = 0; ele<25; ele++){
+            darken(ele);
+        }
+        await quickSort(0,24);
+        for(let ele = 0;ele<25;ele++){
+            brighten(ele);
+        }
+        // then(()=>{
+        //     for(let ele = 0;ele<25;ele++){
+        //     brighten(ele);
+        //     // console.log("hello");
+        // }
+        // });
+        
+    }
+    else if(algo == 3) {
+        itrs.innerText = 0;
+        // for(let ele = 0; ele<25; ele++){
+        //     darken(ele);
+        // }
+        await mergeSort(0,24);
+        for(let ele = 0;ele<25;ele++){
+            brighten(ele);
+        }
+        // then(()=>{
+        //     for(let ele = 0;ele<25;ele++){
+        //     brighten(ele);
+        //     // console.log("hello");
+        // }
+        // });
+        // console.log(JSON.stringify(myArray));
+        
+    }
+    stopSort();
     // startBtn.onclick = startSort();
 }
 
@@ -198,7 +232,7 @@ function stopSort(){
 
 function visualise(...currentIndex){
     currentIndex.forEach(element => {
-        console.log(element)
+        // console.log(element)
         let currBox = document.getElementById("col-"+JSON.stringify(element+1));
         currBox.style.borderWidth = "min(3px, 0.3vw)";
         currBox.childNodes[1].style.background = "#0C1E7F";
@@ -221,13 +255,39 @@ function visualise2(...currentIndex){
     });
 }
 
+function visualise3(...currentIndex){
+    currentIndex.forEach(element => {
+        let currBox = document.getElementById("col-"+JSON.stringify(element+1));
+        currBox.style.borderColor = "#24A19C";
+        currBox.style.borderWidth = "min(3px, 0.3vw)";
+        currBox.childNodes[1].style.background = "#570530";
+        currBox.childNodes[1].style.color = "#FFF9F9";
+        currBox.style.borderStyle = "solid";
+    });
+}
+
+function darken(element){
+    
+    let currBox = document.getElementById("col-"+JSON.stringify(element+1));
+    currBox.style.opacity = 0.25;
+    
+}
+
+function brighten(element){
+    
+    let currBox = document.getElementById("col-"+JSON.stringify(element+1));
+    currBox.style.opacity = 1;
+    
+}
+
+
 function visualiseEnd(...currentIndex){
     currentIndex.forEach(element => {
         let currBox = document.getElementById("col-"+JSON.stringify(element+1));
         currBox.style.borderWidth = "0";
         // currBox.style.width = "20%";
         // currBox.style.height = "100%";
-        console.log(element);
+        // console.log(element);
         currBox.childNodes[1].style.background = "#FFF9F9";
         currBox.childNodes[1].style.color = "black";
         currBox.style.borderColor = "none";
@@ -240,8 +300,8 @@ const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
 
-async function swap(i1, i2, speed) {
-    console.log("swapping "+i1+" and "+i2);
+function swap(i1, i2) {
+    // console.log("swapping "+i1+" and "+i2);
     let box1 = document.getElementById("col-"+JSON.stringify(i1+1));
     let box2 = document.getElementById("col-"+JSON.stringify(i2+1));
     [box1.childNodes[1].innerHTML, box2.childNodes[1].innerHTML] = [box2.childNodes[1].innerHTML, box1.childNodes[1].innerHTML];
@@ -266,25 +326,26 @@ async function selectionSort(index = 0){
         if(myArray[currMin]>myArray[k]) {
             currMin = k;
         }
+        itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
         await sleep(delay*1.5/(speed));
         visualiseEnd(k, temp, currMin);
-        itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+        
     }
 
     if (currMin!=index) {
         visualise2(currMin, index);
         await sleep(delay*2/speed);
-        swap(currMin, index, speed);
+        swap(currMin, index);
         await sleep(delay*2/speed);
         visualiseEnd(currMin, index);
         [myArray[currMin], myArray[index]] = [myArray[index], myArray[currMin]];
     }
 
-    console.log(JSON.stringify(myArray));
+    // console.log(JSON.stringify(myArray));
 
     await sleep(delay/speed);
 
-    selectionSort(index+1);
+    await selectionSort(index+1);
     
     
 }
@@ -313,12 +374,196 @@ async function bubbleSort(size = 25){
         visualiseEnd(i, i+1);
     }
     await sleep(delay/speed);
-    console.log(JSON.stringify(myArray));
+    // console.log(JSON.stringify(myArray));
     if(swaps==0){
         return;
     }
-    bubbleSort(size-1);
+    await bubbleSort(size-1);
+}
+
+async function partition(start, end){
+    // // console.log("partioning...");
+    let pivot = end;
+    visualise3(pivot);
+    let i = start-1;
+    for(let j=start; j<=end && !stop;j++){
+        visualise(j);
+        let speed = range.value;
+        await sleep(delay*1.5/speed);
+        if(myArray[j]<=myArray[pivot]){
+            visualise2(j);
+            i++;
+            visualise2(i);
+            if(j!=i){
+                await sleep(delay*2/speed);
+                swap(j,i);
+                [myArray[i], myArray[j]] = [myArray[j], myArray[i]];
+                await sleep(delay*2/speed);
+            }
+            else{
+                await sleep(delay*2/speed);
+            }
+            visualiseEnd(i);
+        }
+        visualiseEnd(j);
+        itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+    }
+    // // console.log("partioning done.");
+    visualiseEnd(pivot);
+    return i;
+}
+
+async function quickSort(start, end){
+    
+    let speed = range.value;
+    if(start<end && !stop){
+
+        for(let ele=start;ele<=end;ele++){
+            brighten(ele);
+        }
+
+
+        let pivot = await partition(start, end);
+        // cout<<"start = "<<start<<"end = "<<end<<"pivot = "<<pivot<<"\n";
+        // print(myArray,n);
+            await sleep(delay/speed);
+            for(let ele=start;ele<=end;ele++){
+                darken(ele);
+            }
+            await quickSort(start,pivot-1);
+            await sleep(delay/speed);
+            await quickSort(pivot,end);
+            // // console.log(pivot);
+        
+    }
+    // // console.log("done with main func");
+}
+
+async function merge(l, m, r){
+    
+    for(let ele=l;ele<=r;ele++){
+        brighten(ele);
+    }
+    // // console.log("merging: " + JSON.stringify(myArray.slice(l,m+1)) +" "+ JSON.stringify(myArray.slice(m+1,r+1)));
+    // // Create temp arrays
+    // let L = new Array(n1); 
+    // let R = new Array(n2);
+  
+    // // Copy data to temp arrays L[] and R[]
+    // for (let i = 0; i < n1; i++)
+    //     L[i] = myArray[l + i];
+    // for (let j = 0; j < n2; j++)
+    //     R[j] = myArray[m + 1 + j];
+  
+    // Merge the temp arrays back into arr[l..r]
+  
+    // Initial index of first subarray
+    let i = l;
+    let left = 0;
+
+    // Initial index of second subarray
+    let j = m+1;
+    let right = 0;
+    // Initial index of merged subarray
+    let k = l;
+
+    // for(let ele=l;ele<=r;ele++){
+    //     brighten(ele);
+    // }
+  
+    while (left<m-l+1 && right<r-m && !stop) {
+        // // console.log("main loop: "+i+" "+j+" "+k);
+        let speed = range.value;
+        await sleep(delay/speed);
+        visualise2(k);
+        visualise(i,j);
+        if (myArray[i] <= myArray[j]) {
+            itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+            await sleep(delay/speed);
+            myArray[k] = myArray[i];
+            visualiseEnd(i);
+            i++;
+            left++;
+        }
+        else {
+            // let toBeStored = myArray[j];
+            itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+
+            for(let it = j; it>i; it--){
+                // itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+                visualise2(it, it-1);
+                await sleep(delay*2/speed);
+                [myArray[it], myArray[it-1]] = [myArray[it-1], myArray[it]];
+                swap(it-1,it);
+                await sleep(delay/speed);
+                visualiseEnd(it, it-1);
+            }
+            visualiseEnd(i,j);
+            right++;
+            i++;
+            j++;
+        }
+        visualiseEnd(k);
+        k++;
+        // // console.log("main wala loop" + JSON.stringify(myArray.slice(l,r+1)));
+        // // console.log("main loop: "+i+" "+j+" "+k);
+    }
+  
+    // Copy the remaining elements of
+    // L[], if there are any
+    while (left<m-l+1 && !stop) {
+        itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+        let speed = range.value;
+        visualise2(k,i);
+        await sleep(delay/speed);
+        myArray[k] = myArray[i];
+        // swap(k,l+i);
+        visualiseEnd(k,i);
+        left++;
+        i++;
+        k++;
+        // // console.log("i wala loop" + JSON.stringify(myArray.slice(l,r+1)));
+    }
+  
+    // Copy the remaining elements of
+    // R[], if there are any
+    while (right<r-m && !stop) {
+        itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
+        let speed = range.value;
+        visualise2(k,j);
+        await sleep(delay/speed);
+        myArray[k] = myArray[j];
+        // swap(k,m+1+j)
+        visualiseEnd(k,j);
+        right++;
+        j++;
+        k++;
+        // // console.log("j wala loop" + JSON.stringify(myArray.slice(l,r+1)));
+
+    }
+
+    for(let ele=0;ele<25;ele++){
+        darken(ele);
+    }
+    
+    // // console.log("merged: "+JSON.stringify(myArray.slice(l,r+1)));
 }
 
 
-
+async function mergeSort(l, r){
+    if(l>=r || stop){
+        return;
+    }
+    
+    
+    
+    let speed = range.value;
+    let m =l+ parseInt((r-l)/2);
+    
+    await sleep(delay/speed);
+    await mergeSort(l,m);
+    await sleep(delay/speed);
+    await mergeSort(m+1,r);
+    await sleep(delay/speed);
+    await merge(l,m,r);
+}
