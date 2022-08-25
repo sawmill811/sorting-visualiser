@@ -67,6 +67,7 @@ window.onload = loadImages();
 // var dir = ["IITJ1"];
 
 function loadImages(){
+    // loading animation
     let loading = document.getElementsByClassName("loading")[0];
     loading.style.opacity = 1;
     startBtn.style.display = "none";
@@ -74,11 +75,13 @@ function loadImages(){
     shufBtn.style.display = "none";
     shufText.style.display = "none";
     var imgArray = [];
+    // loading images into the grid
     for(let i=1;i<=25;i++) {
         let imgObj = new Image();
         imgObj.src = "sortingImages/"+folder+"/"+i+".png";
         imgArray.push(imgObj);
     }
+    // wait till images are loaded
     imgArray[24].onload = function(){
         startBtn.style.display = "block";
         startText.style.display = "block";
@@ -97,7 +100,7 @@ function loadImages(){
 
 function placeImage(imgArray){
     
-    
+    // setting up the grid
     for(let i = 0; i<25; i++){
         let cname = "col-" + JSON.stringify(i+1);
         let currBox = document.getElementById(cname);
@@ -121,6 +124,7 @@ function shuffleArray() {
     let array = [...myArray];
     // // console.log("hey");
     let current = array.length;
+    // randomizing array elements
     while(current!=0) {
         let randomIndex = Math.floor(Math.random()*current);
         current--;
@@ -132,7 +136,7 @@ function shuffleArray() {
 
     // console.log(JSON.stringify(array));
 
-    
+    // setting up the grid with images
     setTimeout(()=> {
         for(var i = 1; i <= 25; i++) {
             let colName = "col-" + JSON.stringify(i);
@@ -155,7 +159,7 @@ function shuffleArray() {
 // border colour options: 0C1E7F, 7900FF, 9145B6, B000B9, 3D2C8D
 
 
-var delay = 200;
+var delay = 200;    // decides overall speed of execution
 var stop = false;
 
 
@@ -171,6 +175,9 @@ async function startSort(){
     
     algo = sortSelector.value;
     sortSelector.disabled = "true";
+
+    // itrs is the number of iterations shown as "comparisons"
+
     if(algo == 0){
         itrs.innerText = 0;
         await selectionSort();
@@ -181,6 +188,9 @@ async function startSort(){
         await bubbleSort();
     }
     else if(algo == 2) {
+
+        // extra formatting for quicksort
+
         itrs.innerText = 0;
         for(let ele = 0; ele<25; ele++){
             darken(ele);
@@ -189,34 +199,16 @@ async function startSort(){
         for(let ele = 0;ele<25;ele++){
             brighten(ele);
         }
-        // then(()=>{
-        //     for(let ele = 0;ele<25;ele++){
-        //     brighten(ele);
-        //     // console.log("hello");
-        // }
-        // });
-        
     }
     else if(algo == 3) {
         itrs.innerText = 0;
-        // for(let ele = 0; ele<25; ele++){
-        //     darken(ele);
-        // }
         await mergeSort(0,24);
         for(let ele = 0;ele<25;ele++){
             brighten(ele);
         }
-        // then(()=>{
-        //     for(let ele = 0;ele<25;ele++){
-        //     brighten(ele);
-        //     // console.log("hello");
-        // }
-        // });
-        // console.log(JSON.stringify(myArray));
         
     }
     stopSort();
-    // startBtn.onclick = startSort();
 }
 
 function stopSort(){
@@ -230,6 +222,8 @@ function stopSort(){
 
 }
 
+// different types of visualizations
+
 function visualise(...currentIndex){
     currentIndex.forEach(element => {
         // console.log(element)
@@ -237,8 +231,6 @@ function visualise(...currentIndex){
         currBox.style.borderWidth = "min(3px, 0.3vw)";
         currBox.childNodes[1].style.background = "#0C1E7F";
         currBox.childNodes[1].style.color = "#FFF9F9";
-        // currBox.style.width = "20%";
-        // currBox.style.height = "95%";
         currBox.style.borderColor = "#3D2C8D";
         currBox.style.borderStyle = "solid";
     });
@@ -280,6 +272,7 @@ function brighten(element){
     
 }
 
+// resetting the grid
 
 function visualiseEnd(...currentIndex){
     currentIndex.forEach(element => {
@@ -299,6 +292,8 @@ function visualiseEnd(...currentIndex){
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
+
+// function to swap grid elements
 
 function swap(i1, i2) {
     // console.log("swapping "+i1+" and "+i2);
@@ -444,18 +439,6 @@ async function merge(l, m, r){
     for(let ele=l;ele<=r;ele++){
         brighten(ele);
     }
-    // // console.log("merging: " + JSON.stringify(myArray.slice(l,m+1)) +" "+ JSON.stringify(myArray.slice(m+1,r+1)));
-    // // Create temp arrays
-    // let L = new Array(n1); 
-    // let R = new Array(n2);
-  
-    // // Copy data to temp arrays L[] and R[]
-    // for (let i = 0; i < n1; i++)
-    //     L[i] = myArray[l + i];
-    // for (let j = 0; j < n2; j++)
-    //     R[j] = myArray[m + 1 + j];
-  
-    // Merge the temp arrays back into arr[l..r]
   
     // Initial index of first subarray
     let i = l;
@@ -466,10 +449,6 @@ async function merge(l, m, r){
     let right = 0;
     // Initial index of merged subarray
     let k = l;
-
-    // for(let ele=l;ele<=r;ele++){
-    //     brighten(ele);
-    // }
   
     while (left<m-l+1 && right<r-m && !stop) {
         // // console.log("main loop: "+i+" "+j+" "+k);
@@ -505,12 +484,7 @@ async function merge(l, m, r){
         }
         visualiseEnd(k);
         k++;
-        // // console.log("main wala loop" + JSON.stringify(myArray.slice(l,r+1)));
-        // // console.log("main loop: "+i+" "+j+" "+k);
     }
-  
-    // Copy the remaining elements of
-    // L[], if there are any
     while (left<m-l+1 && !stop) {
         itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
         let speed = range.value;
@@ -522,11 +496,8 @@ async function merge(l, m, r){
         left++;
         i++;
         k++;
-        // // console.log("i wala loop" + JSON.stringify(myArray.slice(l,r+1)));
     }
   
-    // Copy the remaining elements of
-    // R[], if there are any
     while (right<r-m && !stop) {
         itrs.innerText = JSON.stringify(parseInt(itrs.innerText)+1);
         let speed = range.value;
@@ -538,7 +509,6 @@ async function merge(l, m, r){
         right++;
         j++;
         k++;
-        // // console.log("j wala loop" + JSON.stringify(myArray.slice(l,r+1)));
 
     }
 
@@ -546,7 +516,6 @@ async function merge(l, m, r){
         darken(ele);
     }
     
-    // // console.log("merged: "+JSON.stringify(myArray.slice(l,r+1)));
 }
 
 
